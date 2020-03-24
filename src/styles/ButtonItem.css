@@ -1,0 +1,92 @@
+.app > ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: calc(80% - 60px);
+  flex-shrink: 2;
+  /* background-color: #777; */
+  list-style-type: none;
+  margin: 15px;
+}
+
+.app > ul > li:first-child {
+  flex-basis: 75%;
+}
+.app > ul > li:first-child::before {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  display: block;
+  width: 70%;
+  height: 30%;
+  content: "";
+  background-color: rgb(92, 73, 57);
+  border-top: 2px solid #333;
+  border-left: 2px solid #333;
+  border-radius: 5px;
+}
+
+.app > ul > li:first-child span {
+  position: absolute;
+  top: calc(40% + 1.5px);
+  left: 20%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  display: block;
+  width: 1%;
+  height: 30%;
+  content: "";
+  background-color: rgb(32, 13, 0);
+}
+.app > ul > li:first-child span + span {
+  left: 40%;
+}
+.app > ul > li:first-child span + span + span {
+  left: 59.9%;
+}
+.app > ul > li {
+  position: relative;
+  flex-basis: 25%;
+  height: 20%;
+}
+.app > ul > li + li + li + li {
+  /* background-color: red; */
+}
+
+.app > ul > li > button {
+  display: block;
+  width: 80%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: none;
+  border-right: 2px solid #555;
+  border-bottom: 2px solid #555;
+  border-radius: 5px;
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.app > ul > li button#btn1 {
+  background-color: rgb(181, 88, 51);
+}
+
+.app > ul > li > button:active {
+  border-right: 1.5px solid #555;
+  border-bottom: 1.5px solid #555;
+  border-top: 0.5px solid #000;
+  border-left: 0.5px solid #000;
+  box-shadow: inset 0 0 5px 0px rgba(0, 0, 0, 0.4);
+}
+.app > ul > li > button:focus {
+  outline: none;
+}
