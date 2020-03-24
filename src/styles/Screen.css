@@ -1,0 +1,13 @@
+.screen {
+  flex-basis: 15%;
+  box-sizing: border-box;
+  margin: 5px 10px 10px 10px;
+  border-top: 3px solid rgb(63, 105, 96);
+  border-left: 3px solid rgb(63, 105, 96);
+  border-radius: 5px;
+  font-family: "Roboto Mono", monospace;
+  font-weight: bold;
+  background-color: rgb(102, 151, 140);
+  text-align: end;
+  font-size: 30px;
+}

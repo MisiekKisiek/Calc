@@ -1,0 +1,21 @@
+/* font-family: 'Ubuntu', sans-serif;
+font-family: 'Oswald', sans-serif;
+font-family: 'Roboto Mono', monospace; */
+
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: #aaa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* #root {
+  width: 25%;
+  height: 70%;
+} */
