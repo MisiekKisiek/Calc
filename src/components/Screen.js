@@ -1,11 +1,11 @@
 import React from "react";
 import "../styles/Screen.css";
 
-const Screen = () => {
+const Screen = props => {
   return (
     <div className="screen">
-      <div className="screenUp">7+7=</div>
-      <div className="screenDown">15</div>
+      <div className="screenUp">{props.operationUp}</div>
+      <div className="screenDown">{props.operationDown}</div>
     </div>
   );
 };

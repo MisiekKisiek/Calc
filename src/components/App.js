@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { evaluate, round } from "mathjs";
 import "../styles/App.css";
 import Screen from "./Screen";
 import ButtonItem from "./ButtonItem";
 
 class App extends Component {
   state = {
+    operationUp: "",
+    operationDown: "0",
+    result: 0,
     buttons: [
       { id: 1, btnSign: "ON/C" },
       { id: 2, btnSign: "7" },
@@ -25,10 +29,65 @@ class App extends Component {
       { id: 17, btnSign: "+" }
     ]
   };
+  addSign = e => {
+    console.log(e.target.name);
+    const text = e.target.name;
+    if (this.state.operationDown === "0" || this.state.operationDown === 0) {
+      this.setState(prevState => ({
+        operationDown: ""
+      }));
+    }
+    this.setState(prevState => ({
+      operationDown: prevState.operationDown + text,
+      result: prevState.result + (text === "x" ? "*" : text)
+    }));
+  };
 
+  makeOperation = () => {
+    this.setState(prevState => ({
+      operationUp: prevState.operationDown + "=",
+      operationDown: round(evaluate(prevState.result), 10),
+      result: round(evaluate(prevState.result), 10)
+    }));
+  };
+
+  handleClearScreen = () => {
+    this.setState({
+      operationUp: "",
+      operationDown: 0,
+      result: 0
+    });
+  };
   createButtons = () => {
     const buttons = this.state.buttons.map(e => {
-      return <ButtonItem key={e.id} id={e.id} btnSign={e.btnSign} />;
+      if (e.btnSign === "ON/C") {
+        return (
+          <ButtonItem
+            key={e.id}
+            id={e.id}
+            btnSign={e.btnSign}
+            operationSign={this.handleClearScreen}
+          />
+        );
+      } else if (e.btnSign === "=") {
+        return (
+          <ButtonItem
+            key={e.id}
+            id={e.id}
+            btnSign={e.btnSign}
+            operationSign={this.makeOperation}
+          />
+        );
+      } else {
+        return (
+          <ButtonItem
+            key={e.id}
+            id={e.id}
+            btnSign={e.btnSign}
+            operationSign={this.addSign}
+          />
+        );
+      }
     });
     return buttons;
   };
@@ -36,7 +95,10 @@ class App extends Component {
     return (
       <div className="app">
         <h1>KASIO</h1>
-        <Screen />
+        <Screen
+          operationDown={this.state.operationDown}
+          operationUp={this.state.operationUp}
+        />
         <ul>
           <li>
             <span></span>
