@@ -9,6 +9,9 @@ class App extends Component {
     operationUp: "",
     operationDown: "0",
     result: 0,
+    flag: false,
+    forDot: "",
+    flagForDot: true,
     buttons: [
       { id: 1, btnSign: "ON/C" },
       { id: 2, btnSign: "7" },
@@ -30,25 +33,55 @@ class App extends Component {
     ]
   };
   addSign = e => {
-    console.log(e.target.name);
     const text = e.target.name;
     if (this.state.operationDown === "0" || this.state.operationDown === 0) {
       this.setState(prevState => ({
         operationDown: ""
       }));
     }
-    this.setState(prevState => ({
-      operationDown: prevState.operationDown + text,
-      result: prevState.result + (text === "x" ? "*" : text)
-    }));
+    if (
+      (text === "/" || text === "x" || text === "+" || text === "-") &&
+      this.state.flag === false
+    ) {
+      console.log("aaa");
+      this.setState(prevState => ({
+        operationDown: prevState.operationDown,
+        result: prevState.result
+      }));
+    } else {
+      if (text === "/" || text === "x" || text === "+" || text === "-") {
+        console.log("bbb");
+        this.setState(prevState => ({
+          operationDown: prevState.operationDown + text,
+          result: prevState.result + (text === "x" ? "*" : text),
+          flag: false
+        }));
+      } else {
+        console.log("ccc");
+        this.setState(prevState => ({
+          operationDown: prevState.operationDown + text,
+          result: prevState.result + text,
+          flag: true
+        }));
+      }
+    }
   };
 
   makeOperation = () => {
-    this.setState(prevState => ({
-      operationUp: prevState.operationDown + "=",
-      operationDown: round(evaluate(prevState.result), 10),
-      result: round(evaluate(prevState.result), 10)
-    }));
+    if (
+      this.state.operationDown.endsWith("/") ||
+      this.state.operationDown.endsWith("x") ||
+      this.state.operationDown.endsWith("+") ||
+      this.state.operationDown.endsWith("-") ||
+      this.state.operationDown.endsWith(".")
+    ) {
+    } else {
+      this.setState(prevState => ({
+        operationUp: prevState.operationDown + "=",
+        operationDown: round(evaluate(prevState.result), 10).toString(),
+        result: round(evaluate(prevState.result), 10)
+      }));
+    }
   };
 
   handleClearScreen = () => {
