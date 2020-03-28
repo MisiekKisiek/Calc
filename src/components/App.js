@@ -8,12 +8,12 @@ class App extends Component {
   state = {
     operationUp: "",
     operationDown: "0",
-    result: 0,
+    result: "",
     flag: false,
     forDot: "",
     dotCounter: 0,
     buttons: [
-      { id: 1, btnSign: "ON/C" },
+      { id: 1, btnSign: "CLR" },
       { id: 2, btnSign: "7" },
       { id: 3, btnSign: "8" },
       { id: 4, btnSign: "9" },
@@ -121,7 +121,7 @@ class App extends Component {
   };
   createButtons = () => {
     const buttons = this.state.buttons.map(e => {
-      if (e.btnSign === "ON/C") {
+      if (e.btnSign === "CLR") {
         return (
           <ButtonItem
             key={e.id}

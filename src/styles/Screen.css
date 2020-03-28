@@ -13,11 +13,15 @@
 }
 
 .screen .screenUp {
+  display: flex;
+  justify-content: flex-end;
   height: calc(550px * 0.15 * 0.3);
   line-height: calc(550px * 0.15 * 0.3);
   font-size: 20px;
 }
 .screen .screenDown {
+  display: flex;
+  justify-content: flex-end;
   height: calc(550px * 0.15 * 0.7 -3px);
   line-height: calc(550px * 0.15 * 0.7);
   font-size: 36px;
