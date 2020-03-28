@@ -11,7 +11,7 @@ class App extends Component {
     result: 0,
     flag: false,
     forDot: "",
-    flagForDot: true,
+    dotCounter: 0,
     buttons: [
       { id: 1, btnSign: "ON/C" },
       { id: 2, btnSign: "7" },
@@ -35,26 +35,42 @@ class App extends Component {
   addSign = e => {
     const text = e.target.name;
     if (this.state.operationDown === "0" || this.state.operationDown === 0) {
-      this.setState(prevState => ({
-        operationDown: ""
-      }));
+      if (text === "/" || text === "x") {
+        this.setState(prevState => ({
+          operationDown: "0"
+        }));
+      } else {
+        this.setState(prevState => ({
+          operationDown: ""
+        }));
+      }
     }
-    if (
-      (text === "/" || text === "x" || text === "+" || text === "-") &&
-      this.state.flag === false
-    ) {
+    if ((text === "/" || text === "x") && this.state.flag === false) {
       console.log("aaa");
+      this.setState(prevState => ({
+        operationDown: prevState.operationDown,
+        result: prevState.result
+      }));
+    } else if (this.state.dotCounter >= 1 && text === ".") {
+      console.log("2");
       this.setState(prevState => ({
         operationDown: prevState.operationDown,
         result: prevState.result
       }));
     } else {
       if (text === "/" || text === "x" || text === "+" || text === "-") {
-        console.log("bbb");
         this.setState(prevState => ({
           operationDown: prevState.operationDown + text,
           result: prevState.result + (text === "x" ? "*" : text),
-          flag: false
+          flag: false,
+          dotCounter: 0
+        }));
+      } else if (text === ".") {
+        this.setState(prevState => ({
+          operationDown: prevState.operationDown + text,
+          result: prevState.result + text,
+          flag: false,
+          dotCounter: prevState.dotCounter + 1
         }));
       } else {
         console.log("ccc");
@@ -76,11 +92,21 @@ class App extends Component {
       this.state.operationDown.endsWith(".")
     ) {
     } else {
-      this.setState(prevState => ({
-        operationUp: prevState.operationDown + "=",
-        operationDown: round(evaluate(prevState.result), 10).toString(),
-        result: round(evaluate(prevState.result), 10)
-      }));
+      if (this.state.operationDown.includes(".")) {
+        this.setState(prevState => ({
+          operationUp: prevState.operationDown + "=",
+          operationDown: round(evaluate(prevState.result), 10).toString(),
+          result: round(evaluate(prevState.result), 10),
+          dotCounter: 1
+        }));
+      } else {
+        this.setState(prevState => ({
+          operationUp: prevState.operationDown + "=",
+          operationDown: round(evaluate(prevState.result), 10).toString(),
+          result: round(evaluate(prevState.result), 10),
+          dotCounter: 0
+        }));
+      }
     }
   };
 
@@ -88,7 +114,9 @@ class App extends Component {
     this.setState({
       operationUp: "",
       operationDown: 0,
-      result: 0
+      result: 0,
+      flag: false,
+      dotCounter: 0
     });
   };
   createButtons = () => {
